@@ -1,0 +1,15 @@
+---
+title: First Post
+author: ''
+date: '2017-12-14'
+slug: first-post
+categories: []
+tags: []
+thumbnailImagePosition: left
+thumbnailImage: https://i.imgur.com/ZAi4FKHt.jpg
+---
+
+![Imgur](https://i.imgur.com/ZAi4FKH.jpg)
+
+
+This is how you do it.
