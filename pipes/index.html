@@ -1,0 +1,633 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31.1 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Using Pipes in R</title>
+    <meta name="author" content="Nathan Byers">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="../favicon.png">
+    
+
+    
+    <meta name="description" content="The pipe operator can improve the readability of your code and make you more productive.">
+    <meta property="og:description" content="The pipe operator can improve the readability of your code and make you more productive.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Using Pipes in R">
+    <meta property="og:url" content="/pipes/">
+    <meta property="og:site_name" content="R&#39;s Technica">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="R&#39;s Technica">
+    <meta name="twitter:description" content="The pipe operator can improve the readability of your code and make you more productive.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/cde4bd92d4954ffab2971a945e4b866c?s=640">
+    
+
+    
+      <meta property="og:image" content="https://github.com/NateByers/blog/raw/master/static/img/pipes/pipe.png">
+    
+    
+      <meta property="og:image" content="https://github.com/NateByers/blog/raw/master/static/img/pipes/pipes.jpeg">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="../css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="../">R&#39;s Technica</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="../#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/cde4bd92d4954ffab2971a945e4b866c?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="../#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/cde4bd92d4954ffab2971a945e4b866c?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Nathan Byers</h4>
+        
+          <h5 class="sidebar-profile-bio">R programmer and data scientist</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="../tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="../archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/natebyers">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/naterbyers">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-center
+              "
+       style="background-image:url('https://github.com/NateByers/blog/raw/master/static/img/pipes/pipes.jpeg')"
+       data-behavior="4">
+    
+      <div class="post-header main-content-wrap text-center">
+  
+    <h1 class="post-title" itemprop="headline">
+      Using Pipes in R
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2017-12-28T00:00:00Z">
+        
+  December 28, 2017
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="../categories/programming">programming</a>
+    
+  
+
+  </div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="4"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>If you’ve been introduced to R as a simple way to do data analysis you might have come across this strange operator, <code>%&gt;%</code>. It’s called a pipe because it passes data from one function to another. Here’s an example of subsetting and transforming data using the pipe from the magrittr package:</p>
+<pre class="r"><code>library(magrittr)
+
+dat &lt;- airquality %&gt;%
+  subset(Ozone &gt; 40) %&gt;%
+  transform(Celsius = (Temp - 32) * (5/9)) %&gt;%
+  head()
+
+dat</code></pre>
+<pre><code>##    Ozone Solar.R Wind Temp Month Day  Celsius
+## 1     41     190  7.4   67     5   1 19.44444
+## 29    45     252 14.9   81     5  29 27.22222
+## 30   115     223  5.7   79     5  30 26.11111
+## 40    71     291 13.8   90     6   9 32.22222
+## 62   135     269  4.1   84     7   1 28.88889
+## 63    49     248  9.2   85     7   2 29.44444</code></pre>
+<p>The first line can be read, “I’m going to make a new object called <code>dat</code> and it’s going to start with the <code>airquality</code> data frame”. The <code>%&gt;%</code> at the end of the first line pipes the data frame to the next line, which is the <code>subset</code> function. If you look at the <a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/subset.html">documentation</a> for <code>subset</code>, the first argument is <code>x</code>, an “object to be subsetted”. The <code>%&gt;%</code> takes the data frame immediately before it and places it in the first argument of the function immediately following it. So <code>airquality</code> becomes the object to be subsetted in the <code>subset</code> function.</p>
+<p>Since the pipe has already assigned a data frame to the first argument of <code>subset</code>, the next argument in the function is a logical expression that is used to select rows to keep (i.e., subset the data frame). I want to keep all rows where the ozone values are above 40.</p>
+<p>Once the concept sinks in, you can easily read the rest of the code. The output of <code>subset</code> is piped to the first argument of <code>transform</code>. The argument that I have inside of <code>transform</code> is assigned to the second argument, and the output of <code>transform</code> is passed on to the first argument of <code>head</code>.</p>
+<div id="dplyr" class="section level1">
+<h1>dplyr</h1>
+<p>So why use the pipe? For one thing, you avoid reassigning the data frame every time you change it. Here’s the subset/transformation from above without the pipes.</p>
+<pre class="r"><code>dat &lt;- subset(airquality, Ozone &gt; 40) 
+dat &lt;- transform(dat, Celsius = (Temp - 32) * (5/9)) 
+dat &lt;- head(dat)
+
+dat</code></pre>
+<pre><code>##    Ozone Solar.R Wind Temp Month Day  Celsius
+## 1     41     190  7.4   67     5   1 19.44444
+## 29    45     252 14.9   81     5  29 27.22222
+## 30   115     223  5.7   79     5  30 26.11111
+## 40    71     291 13.8   90     6   9 32.22222
+## 62   135     269  4.1   84     7   1 28.88889
+## 63    49     248  9.2   85     7   2 29.44444</code></pre>
+<p>You not only avoid reassigning the data frame every time, but you don’t have to type the data frame object as the first argument in each function.</p>
+<p>Admittedly, the amount of typing being saved is minimal. The other main reason to use pipes is the benefit of chaining dplyr functions together. Those functions were written with the pipe in mind.</p>
+<pre class="r"><code>library(dplyr)
+
+dat &lt;- airquality %&gt;%
+  filter(Ozone &gt; 40) %&gt;%
+  mutate(Celsius = (Temp - 32) * (5/9)) %&gt;%
+  head()
+
+dat</code></pre>
+<pre><code>##   Ozone Solar.R Wind Temp Month Day  Celsius
+## 1    41     190  7.4   67     5   1 19.44444
+## 2    45     252 14.9   81     5  29 27.22222
+## 3   115     223  5.7   79     5  30 26.11111
+## 4    71     291 13.8   90     6   9 32.22222
+## 5   135     269  4.1   84     7   1 28.88889
+## 6    49     248  9.2   85     7   2 29.44444</code></pre>
+<p>Once you get used to using the pipe, you gain the ability to quickly read a chain of dplyr functions. And this can speed up your production significantly.</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="../tags/r/">r</a>
+
+  <a class="tag tag--primary tag--small" href="../tags/pipe/">pipe</a>
+
+  <a class="tag tag--primary tag--small" href="../tags/magrittr/">magrittr</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="../rvest/" data-tooltip="Web Scraping with rvest">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/pipes/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/pipes/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/pipes/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 Nathan Byers. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="../rvest/" data-tooltip="Web Scraping with rvest">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/pipes/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/pipes/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/pipes/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2Fpipes%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2Fpipes%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2Fpipes%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/cde4bd92d4954ffab2971a945e4b866c?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Nathan Byers</h4>
+    
+      <div id="about-card-bio">R programmer and data scientist</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data Analyst
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Indianapolis
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../rvest/">
+                <h3 class="media-heading">Web Scraping with rvest</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">rvest is an R package that makes it easy to scrape text from web pages.
+This code is from the GitHub page for the package. It shows how to scrape the rating, cast, and poster for The Lego Movie from IMBD.
+library(rvest) lego_movie &lt;- read_html(&quot;http://www.imdb.com/title/tt1490017/&quot;) rating &lt;- lego_movie %&gt;% html_nodes(&quot;strong span&quot;) %&gt;% html_text() %&gt;% as.numeric() rating ## [1] 7.8 cast &lt;- lego_movie %&gt;% html_nodes(&quot;#titleCast .itemprop span&quot;) %&gt;% html_text() cast ## [1] &quot;Will Arnett&quot; &quot;Elizabeth Banks&quot; &quot;Craig Berry&quot; ## [4] &quot;Alison Brie&quot; &quot;David Burrows&quot; &quot;Anthony Daniels&quot; ## [7] &quot;Charlie Day&quot; &quot;Amanda Farinos&quot; &quot;Keith Ferguson&quot; ## [10] &quot;Will Ferrell&quot; &quot;Will Forte&quot; &quot;Dave Franco&quot; ## [13] &quot;Morgan Freeman&quot; &quot;Todd Hansen&quot; &quot;Jonah Hill&quot; #Scrape the website for the url of the movie poster poster &lt;- lego_movie %&gt;% html_nodes(&quot;#img_primary img&quot;) %&gt;% html_attr(&quot;src&quot;) poster  CSS selector The trick to all of this is the text you put in the html_nodes function.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="../pipes/">
+                <h3 class="media-heading">Using Pipes in R</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">If you’ve been introduced to R as a simple way to do data analysis you might have come across this strange operator, %&gt;%. It’s called a pipe because it passes data from one function to another. Here’s an example of subsetting and transforming data using the pipe from the magrittr package:
+library(magrittr) dat &lt;- airquality %&gt;% subset(Ozone &gt; 40) %&gt;% transform(Celsius = (Temp - 32) * (5/9)) %&gt;% head() dat ## Ozone Solar.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         2 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('https://github.com/NateByers/blog/blob/master/static/img/file.jpg?raw=true');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="../js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/pipes\/';
+          
+            this.page.identifier = '\/pipes\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'natebyers';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+
