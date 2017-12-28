@@ -1,0 +1,13 @@
+---
+title: Using Pipes in R
+author: ''
+date: '2017-12-29'
+slug: using-pipes-in-r
+categories:
+  - programming
+tags:
+  - magrittr
+  - pipe
+  - r
+---
+

@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Learning the Hard Way</title>
+    <title>Posts on R&#39;s Technica</title>
     <link>/post/</link>
-    <description>Recent content in Posts on Learning the Hard Way</description>
+    <description>Recent content in Posts on R&#39;s Technica</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>First Post</title>
-      <link>/2017/12/first-post/</link>
-      <pubDate>Thu, 14 Dec 2017 00:00:00 +0000</pubDate>
+      <title>Web Scraping with rvest</title>
+      <link>/2018/01/rvest/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/2017/12/first-post/</guid>
-      <description>Imgur
- This is how you do it.</description>
+      <guid>/2018/01/rvest/</guid>
+      <description>rvest is an R package that makes it easy to scrape text from web pages.
+This code is from the GitHub page for the package. It shows how to scrape the rating, cast, and poster for The Lego Movie from IMBD.
+library(rvest) lego_movie &amp;lt;- read_html(&amp;quot;http://www.imdb.com/title/tt1490017/&amp;quot;) rating &amp;lt;- lego_movie %&amp;gt;% html_nodes(&amp;quot;strong span&amp;quot;) %&amp;gt;% html_text() %&amp;gt;% as.numeric() rating ## [1] 7.8 cast &amp;lt;- lego_movie %&amp;gt;% html_nodes(&amp;quot;#titleCast .itemprop span&amp;quot;) %&amp;gt;% html_text() cast ## [1] &amp;quot;Will Arnett&amp;quot; &amp;quot;Elizabeth Banks&amp;quot; &amp;quot;Craig Berry&amp;quot; ## [4] &amp;quot;Alison Brie&amp;quot; &amp;quot;David Burrows&amp;quot; &amp;quot;Anthony Daniels&amp;quot; ## [7] &amp;quot;Charlie Day&amp;quot; &amp;quot;Amanda Farinos&amp;quot; &amp;quot;Keith Ferguson&amp;quot; ## [10] &amp;quot;Will Ferrell&amp;quot; &amp;quot;Will Forte&amp;quot; &amp;quot;Dave Franco&amp;quot; ## [13] &amp;quot;Morgan Freeman&amp;quot; &amp;quot;Todd Hansen&amp;quot; &amp;quot;Jonah Hill&amp;quot; #Scrape the website for the url of the movie poster poster &amp;lt;- lego_movie %&amp;gt;% html_nodes(&amp;quot;#img_primary img&amp;quot;) %&amp;gt;% html_attr(&amp;quot;src&amp;quot;) poster  CSS selector The trick to all of this is the text you put in the html_nodes function.</description>
+    </item>
+    
+    <item>
+      <title>Using Pipes in R</title>
+      <link>/2017/12/pipes/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/12/pipes/</guid>
+      <description>If you’ve been introduced to R as a simple way to do data analysis you might have come across this strange operator, %&amp;gt;%. It’s called a pipe because it passes data from one function to another. Here’s an example of subsetting and transforming data using the pipe from the magrittr package:
+library(magrittr) dat &amp;lt;- airquality %&amp;gt;% subset(Ozone &amp;gt; 40) %&amp;gt;% transform(Celsius = (Temp - 32) * (5/9)) %&amp;gt;% head() dat ## Ozone Solar.</description>
     </item>
     
   </channel>

@@ -1,11 +1,11 @@
 ---
 title: "Web Scraping with rvest"
 author: ''
-date: '2017-12-14'
+date: '2018-01-01'
 coverImage: https://github.com/NateByers/blog/raw/master/static/img/rvest/scraping.jpg
 description: rvest is an R package that makes it easy to scrape text from web pages.
 metaAlignment: center
-slug: first-post
+slug: rvest
 tags: [r,rvest]
 thumbnailImage: https://github.com/NateByers/blog/raw/master/static/img/rvest/scraper.jpg
 thumbnailImagePosition: left

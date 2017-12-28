@@ -22,7 +22,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.31.1 with theme Tranquilpeak 0.4.3-BETA">
-    <title>Web Scraping with rvest</title>
+    <title>Using Pipes in R</title>
     <meta name="author" content="Nathan Byers">
     <meta name="keywords" content="">
 
@@ -30,15 +30,15 @@
     
 
     
-    <meta name="description" content="rvest is an R package that makes it easy to scrape text from web pages.">
-    <meta property="og:description" content="rvest is an R package that makes it easy to scrape text from web pages.">
+    <meta name="description" content="">
+    <meta property="og:description" content="">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Web Scraping with rvest">
-    <meta property="og:url" content="/2017/12/first-post/">
+    <meta property="og:title" content="Using Pipes in R">
+    <meta property="og:url" content="/2017/12/using-pipes-in-r/">
     <meta property="og:site_name" content="R&#39;s Technica">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="R&#39;s Technica">
-    <meta name="twitter:description" content="rvest is an R package that makes it easy to scrape text from web pages.">
+    <meta name="twitter:description" content="">
     
     
 
@@ -50,10 +50,6 @@
     
 
     
-      <meta property="og:image" content="https://github.com/NateByers/blog/raw/master/static/img/rvest/scraper.jpg">
-    
-    
-      <meta property="og:image" content="https://github.com/NateByers/blog/raw/master/static/img/rvest/scraping.jpg">
     
     
 
@@ -166,24 +162,26 @@
 </nav>
 
       
-  <div class="post-header-cover
-              text-center
-              "
-       style="background-image:url('https://github.com/NateByers/blog/raw/master/static/img/rvest/scraping.jpg')"
-       data-behavior="4">
-    
-      <div class="post-header main-content-wrap text-center">
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Web Scraping with rvest
+      Using Pipes in R
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2017-12-14T00:00:00Z">
+      <time itemprop="datePublished" datetime="2017-12-29T00:00:00Z">
         
-  December 14, 2017
+  December 29, 2017
 
       </time>
     
@@ -192,90 +190,17 @@
   
     <span>in</span>
     
-      <a class="category-link" href="../../../categories/web-scraping">web-scraping</a>
+      <a class="category-link" href="../../../categories/programming">programming</a>
     
   
 
   </div>
 
 </div>
-    
-  </div>
-
-
-      <div id="main" data-behavior="4"
-        class="hasCover
-               hasCoverMetaIn
-               ">
-        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
-          
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p><code>rvest</code> is an R package that makes it easy to scrape text from web pages.</p>
-<p>This code is from the <a href="https://github.com/hadley/rvest">GitHub page</a> for the package. It shows how to scrape the rating, cast, and poster for The Lego Movie from IMBD.</p>
-<pre class="r"><code>library(rvest)
-lego_movie &lt;- read_html(&quot;http://www.imdb.com/title/tt1490017/&quot;)
-
-rating &lt;- lego_movie %&gt;% 
-  html_nodes(&quot;strong span&quot;) %&gt;%
-  html_text() %&gt;%
-  as.numeric()
-rating</code></pre>
-<pre><code>## [1] 7.8</code></pre>
-<pre class="r"><code>cast &lt;- lego_movie %&gt;%
-  html_nodes(&quot;#titleCast .itemprop span&quot;) %&gt;%
-  html_text()
-cast</code></pre>
-<pre><code>##  [1] &quot;Will Arnett&quot;     &quot;Elizabeth Banks&quot; &quot;Craig Berry&quot;    
-##  [4] &quot;Alison Brie&quot;     &quot;David Burrows&quot;   &quot;Anthony Daniels&quot;
-##  [7] &quot;Charlie Day&quot;     &quot;Amanda Farinos&quot;  &quot;Keith Ferguson&quot; 
-## [10] &quot;Will Ferrell&quot;    &quot;Will Forte&quot;      &quot;Dave Franco&quot;    
-## [13] &quot;Morgan Freeman&quot;  &quot;Todd Hansen&quot;     &quot;Jonah Hill&quot;</code></pre>
-<pre class="r"><code>#Scrape the website for the url of the movie poster
-poster &lt;- lego_movie %&gt;%
-  html_nodes(&quot;#img_primary img&quot;) %&gt;%
-  html_attr(&quot;src&quot;)
-poster</code></pre>
-<div class="figure">
-<img src="http://ia.media-imdb.com/images/M/MV5BMTg4MDk1ODExN15BMl5BanBnXkFtZTgwNzIyNjg3MDE@._V1_SX214_AL_.jpg" />
-
-</div>
-<div id="css-selector" class="section level1">
-<h1>CSS selector</h1>
-<p>The trick to all of this is the text you put in the <code>html_nodes</code> function. For example, this bit of code uses the text “#titleStoryLine p” to grab the storyline on the IMBD page.</p>
-<pre class="r"><code>storyline &lt;- lego_movie %&gt;%
-  html_nodes(&quot;#titleStoryLine p&quot;) %&gt;%
-  html_text()
-cat(storyline)</code></pre>
-<pre><code>## 
-## The LEGO Movie is a 3D animated film which follows lead character, Emmet a completely ordinary LEGO mini-figure who is identified as the most &quot;extraordinary person&quot; and the key to saving the Lego universe. Emmet and his friends go on an epic journey to stop the evil tyrant, Lord Business.                Written by
-## DeAlan Wilson www.ComedyE.com</code></pre>
-<p>The text “#titleStoryLine p” is a <a href="https://www.w3schools.com/cssref/css_selectors.asp">CSS selector</a> that identifies the part of the page that you want to scrape. Here’s a fun tutorial on how to use selectors to grab elements on a page: <a href="http://flukeout.github.io/" class="uri">http://flukeout.github.io/</a>.</p>
-<p>So the text “#titleStoryLine p” indicates that we selected the “p” element after the element with the id “titleStoryLine”.</p>
-</div>
-<div id="selectorgadget" class="section level1">
-<h1>SelectorGadget</h1>
-<p>But how do you know what CSS selector you should use to grab what you want on a page? Well I could just look at the text in the <code>lego_movie</code> object.</p>
-<pre class="r"><code>lego_movie</code></pre>
-<pre><code>## {xml_document}
-## &lt;html xmlns:og=&quot;http://ogp.me/ns#&quot; xmlns:fb=&quot;http://www.facebook.com/2008/fbml&quot;&gt;
-## [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset= ...
-## [2] &lt;body id=&quot;styleguide-v2&quot; class=&quot;fixed&quot;&gt;\n&lt;script&gt;\n    if (typeof ue ...</code></pre>
-<p>Or I could use <a href="http://selectorgadget.com/" class="uri">http://selectorgadget.com/</a>. It’s a tool for using your cursor to find the selector you need on a webpage. To use it, drag <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;https://dv0akt2986vzh.cloudfront.net/unstable/lib/selectorgadget.js&#39;);document.body.appendChild(s);%7D)();">this link</a> to your bookmark bar. Then go to IMDB, or whatever page you want to scrape, and click the SelectorGadget bookmark. Hover over the element you want to select and click.</p>
-<p>In the image below, I’ve hovered over the Storyline paragraph and clicked. The paragraph is green but you can see that another part of the page is highlighted in yellow.</p>
-<div class="figure">
-<img src="https://github.com/NateByers/blog/raw/master/static/img/rvest/selector1.PNG" />
-
-</div>
-<p>This means that if I use the CSS selector in the box at the bottom of the image (“p”), I will get the Storyline and all of the other text that is highlighted in yellow. To narrow my selection to just the Storyline, I click on the yellow text and exclude it from my selection.</p>
-<div class="figure">
-<img src="https://github.com/NateByers/blog/raw/master/static/img/rvest/selector2.PNG" />
-
-</div>
-<p>The yellow highlight turns to red, and you can see the CSS selector “#titleStoryLine p” in the box at the bottom of the image.</p>
-</div>
-
+              
               
             </div>
           </div>
@@ -287,9 +212,11 @@ cat(storyline)</code></pre>
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="../../../tags/r/">r</a>
+  <a class="tag tag--primary tag--small" href="../../../tags/magrittr/">magrittr</a>
 
-  <a class="tag tag--primary tag--small" href="../../../tags/rvest/">rvest</a>
+  <a class="tag tag--primary tag--small" href="../../../tags/pipe/">pipe</a>
+
+  <a class="tag tag--primary tag--small" href="../../../tags/r/">r</a>
 
                   </div>
                 
@@ -302,7 +229,7 @@ cat(storyline)</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="../../../2017/12/pipes/" data-tooltip="Using Pipes in R">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -310,7 +237,7 @@ cat(storyline)</code></pre>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="../../../2017/12/pipes/" data-tooltip="Using Pipes in R">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -328,19 +255,19 @@ cat(storyline)</code></pre>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2017/12/first-post/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2017/12/using-pipes-in-r/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2017/12/first-post/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2017/12/using-pipes-in-r/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2017/12/first-post/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2017/12/using-pipes-in-r/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -388,7 +315,7 @@ cat(storyline)</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="../../../2017/12/pipes/" data-tooltip="Using Pipes in R">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -396,7 +323,7 @@ cat(storyline)</code></pre>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="../../../2017/12/pipes/" data-tooltip="Using Pipes in R">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -414,19 +341,19 @@ cat(storyline)</code></pre>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2017/12/first-post/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2017/12/using-pipes-in-r/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2017/12/first-post/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2017/12/using-pipes-in-r/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2017/12/first-post/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2017/12/using-pipes-in-r/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -456,19 +383,19 @@ cat(storyline)</code></pre>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F12%2Ffirst-post%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F12%2Fusing-pipes-in-r%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2017%2F12%2Ffirst-post%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2017%2F12%2Fusing-pipes-in-r%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2017%2F12%2Ffirst-post%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2017%2F12%2Fusing-pipes-in-r%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -529,6 +456,23 @@ cat(storyline)</code></pre>
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="../../../2017/12/using-pipes-in-r/">
+                <h3 class="media-heading">Using Pipes in R</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="../../../2017/12/pipes/">
                 <h3 class="media-heading">Using Pipes in R</h3>
               </a>
@@ -570,7 +514,7 @@ library(rvest) lego_movie &lt;- read_html(&quot;http://www.imdb.com/title/tt1490
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         2 posts found
+         3 posts found
       </p>
     </div>
   </div>
@@ -611,9 +555,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/2017\/12\/first-post\/';
+          this.page.url = '\/2017\/12\/using-pipes-in-r\/';
           
-            this.page.identifier = '\/2017\/12\/first-post\/'
+            this.page.identifier = '\/2017\/12\/using-pipes-in-r\/'
           
         };
         (function() {
